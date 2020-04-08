@@ -5,9 +5,9 @@ class Subject extends Component{
         return(
             <header>
                 <h1>
-                    <a href="/">WEB</a>
+                    <a href="/">{this.props.title}</a>
                 </h1>
-                welcome to world wide web!
+                     {this.props.sub}
             </header>
         );
     }

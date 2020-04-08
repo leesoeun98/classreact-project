@@ -10,9 +10,9 @@ class App extends Component{
     return(
       <div className="App">
         <header className="App-header">
-          <Subject></Subject>
+          <Subject title="web" sub="welcome"></Subject>
           <Toc></Toc>
-          <Contents></Contents>
+          <Contents title="HTML" desc="HTML is HyperText Markup Languages"></Contents>
         </header>
 
       </div>
