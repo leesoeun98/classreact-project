@@ -6,12 +6,23 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component{
+  constructor(props){
+    super(props);
+    this.state={
+      subject:{title: "web", sub: "welcome to world wide web!"},
+      contents:[
+        {id:1, title:"HTML", desc:"HTML is HyperText Markup Language"},
+        {id:2, title:"CSS", desc:"CSS is for design"},
+        {id:3, title:"JavaScipt", desc:"JavaScript is for interactive"}
+      ]
+    }
+  }
   render(){
     return(
       <div className="App">
         <header className="App-header">
-          <Subject title="web" sub="welcome"></Subject>
-          <Toc></Toc>
+          <Subject title={this.state.subject.title} sub={this.state.subject.sub}></Subject>
+          <Toc data={this.state.contents}></Toc>
           <Contents title="HTML" desc="HTML is HyperText Markup Languages"></Contents>
         </header>
 
