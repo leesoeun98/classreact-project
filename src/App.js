@@ -5,14 +5,14 @@ import Toc from './components/Toc';
 import logo from './logo.svg';
 import './App.css';
 {/* 초기엔 welcome모드고, web 누르면 하단에 welcome 어쩌구가 뜨게
-  -> Subject의 title 링크 누르면 mode가 welcome으로 바꾸고 contents component에 반영
+  -> Subject의 title 링크 누르면 (여기에 event 함수설치) mode가 welcome으로 바꾸고 contents component에 반영
 -> 이때 새로 페이지를 그릴려면 render를 호출해야하고, 이를 위해선 state값을 바꿔야한다.  */}
 
 class App extends Component{
   constructor(props){
     super(props);
     this.state={
-      mode:'welcome',
+      mode:'read',
       subject:{title: "web", sub: "world wide web!"},
       welcome:{title:"welcome", desc:"Hello, React!"},
       contents:[
@@ -31,9 +31,14 @@ class App extends Component{
     return(
       <div className="App">
         <header className="App-header">
-          <Subject title={this.state.subject.title} sub={this.state.subject.sub}></Subject>
+          <Subject title={this.state.subject.title} sub={this.state.subject.sub}
+            onChangePage={function(e){
+              this.setState({
+               mode:'welcome'
+            });
+          }.bind(this)}></Subject>
           <Toc data={this.state.contents}></Toc>
-          <Contents title="HTML" desc="HTML is HyperText Markup Languages"></Contents>
+          <Contents title={_title} desc={_desc}></Contents>
         </header>
 
       </div>
