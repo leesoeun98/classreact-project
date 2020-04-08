@@ -6,13 +6,23 @@ for문으로 data하나하나를 list 에 넣어서 push 해주기
 단, 이 경우 key 필요하다.
 */}
 
+{/* onChangePage함수에 id 인자줘야함
+-> app의 함수인 onChangePage를 props로 부르되, id를 인자로 줘야함. 
+-> 먼저 debugger를 입력 후 콘솔로 e를 찍어서 id를 어떻게 얻을지 생각해보면 됨. 
+-> e.target이 해당 태그를 가리키는데, data-set을 보면 데이터가 넘어감*/}
+
 class Toc extends Component{
     render(){
         let lists=[];
         const data=this.props.data;
         for(let i=0;i<data.length;i++){
             lists.push(
-                <li key={data[i].id}><a href={"}/content/"+data[i].id}>{data[i].title}</a></li>
+                <li key={data[i].id}><a href={"/content/"+data[i].id}
+                data-id={data[i].id}
+                onClick={function(e){
+                    e.preventDefault();
+                    this.props.onChangePage(e.target.dataset.id);
+                }.bind(this)}>{data[i].title}</a></li>
             )
         }            
         return(
