@@ -65,8 +65,11 @@ class App extends Component{
       _content=this.getReadContents();
       _article=<UpdateContents data={_content} 
       //onSubmit의 인자는 update의 onSubmit이 주는거
-      onSubmit={function(_title,_desc){
-
+      onSubmit={function(updatetitle,updatedesc){
+        this.setState({
+          title:updatetitle,
+          desc:updatedesc
+        });
       }.bind(this)}></UpdateContents>
     }
     return _article;
