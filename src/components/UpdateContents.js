@@ -10,6 +10,12 @@ import React, { Component } from 'react';
     (App의 setstate는 최종적으로 바뀐 title로 state값 바꾸는것이므로)
 
     2. Update에서 수정한 title, desc를 onSubmit의 인자로 넘겨서 App에서 setstate를 한다.
+    -> form의 onSubmit에서는 제출시 App에서 setstate해주는 부분이므로
+    -> 바꾼 인자를 줘야함. debugger로 e, e.target찍어보며 값찾기
+
+    3. App에서는 바뀐 title, desc입력받고 content복사본에 push가 아닌
+    -> 해당되는 id의 content의 title, desc를 바궈야함. push아님. push하면 수정이아닌 create처럼 id부여됨
+
  */}
 class UpdateContents extends Component{
     constructor(props){
@@ -17,7 +23,8 @@ class UpdateContents extends Component{
         //update의 state값들은 props인 data에서 받아온 값들로 초기화해야하므로 
         this.state={
             title:this.props.data.title,
-            desc:this.props.data.desc
+            desc:this.props.data.desc,
+            id:this.props.data.id
         }
     }
     render(){
@@ -27,9 +34,7 @@ class UpdateContents extends Component{
                 <form action="/update" method="post" 
                 onSubmit={function(e){
                     e.preventDefault();
-                    //이 onSubmit에서는 제출시 App에서 setstate해주는 부분이므로
-                    //바꾼 인자를 줘야함
-                    //this.props.onSubmit(title, desc);
+                    this.props.onSubmit(this.state.id,e.target.title.value, e.target.desc.value);
                 }.bind(this)}>
                     <p><input type="text" name="title" value={this.state.title}
                     onChange={function(e){
