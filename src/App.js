@@ -1,6 +1,6 @@
 import React, { Component, createContext } from 'react';
 import Subject from './components/Subject';
-import Contents from './components/Contents';
+import ReadContents from './components/ReadContents';
 import Control from './components/Control';
 import CreateContent from './components/CreateContent';
 import Toc from './components/Toc';
@@ -16,10 +16,10 @@ import './App.css';
 class App extends Component{
   constructor(props){
     super(props);
+    this.max_content_id=3;
     this.state={
       mode:'create',
       selected_content_id:1,
-      max_content_id:3,
       subject:{title: "web", sub: "world wide web!"},
       welcome:{title:"welcome", desc:"Hello, React!"},
       contents:[
@@ -42,12 +42,12 @@ class App extends Component{
     if(this.state.mode==='welcome'){
       _title=this.state.welcome.title;
       _desc=this.state.welcome.desc;
-      _article=<Contents title={_title} desc={_desc}></Contents>
+      _article=<ReadContents title={_title} desc={_desc}></ReadContents>
     }
     else if(this.state.mode==='read'){
      _content=this.getReadContents();
      console.log(_content);
-     _article=<Contents title={_content.title} desc={_content.desc}></Contents>
+     _article=<ReadContents title={_content.title} desc={_content.desc}></ReadContents>
     }
     else if (this.state.mode==='create'){
       _article=<CreateContent onSubmit={function(newtitle, newdesc){
@@ -84,7 +84,12 @@ class App extends Component{
           }.bind(this)}
           data={this.state.contents}>
           </Toc>
-          <Control></Control>
+
+          <Control onChangeMode={function(_mode){
+            this.setState({mode:_mode});
+          }.bind(this)}>
+          </Control>
+
           {this.getContents()}
 
         </header>
