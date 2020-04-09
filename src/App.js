@@ -2,6 +2,7 @@ import React, { Component, createContext } from 'react';
 import Subject from './components/Subject';
 import ReadContents from './components/ReadContents';
 import Control from './components/Control';
+import UpdateContents from './components/UpdateContents';
 import CreateContent from './components/CreateContent';
 import Toc from './components/Toc';
 import logo from './logo.svg';
@@ -61,6 +62,9 @@ class App extends Component{
           selected_content_id:this.max_content_id
         });
       }.bind(this)}></CreateContent>
+    }
+    else if(this.state.mode==='update'){
+      _article=<UpdateContents></UpdateContents>
     }
     return _article;
   }
