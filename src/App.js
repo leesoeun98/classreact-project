@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, createContext } from 'react';
 import Subject from './components/Subject';
 import Contents from './components/Contents';
 import Control from './components/Control';
+import CreateContent from './components/CreateContent';
 import Toc from './components/Toc';
 import logo from './logo.svg';
 import './App.css';
@@ -16,8 +17,9 @@ class App extends Component{
   constructor(props){
     super(props);
     this.state={
-      mode:'read',
+      mode:'create',
       selected_content_id:1,
+      max_content_id:3,
       subject:{title: "web", sub: "world wide web!"},
       welcome:{title:"welcome", desc:"Hello, React!"},
       contents:[
@@ -46,6 +48,10 @@ class App extends Component{
      _content=this.getReadContents();
      console.log(_content);
      _article=<Contents title={_content.title} desc={_content.desc}></Contents>
+    }
+    else if (this.state.mode==='create'){
+      this.state.max_content_id=this.state.max_content_id+1;
+      _article=<CreateContent></CreateContent>
     }
     return(
       <div className="App">
