@@ -47,7 +47,6 @@ class App extends Component{
     }
     else if(this.state.mode==='read'){
      _content=this.getReadContents();
-     console.log(_content);
      _article=<ReadContents title={_content.title} desc={_content.desc}></ReadContents>
     }
     else if (this.state.mode==='create'){
@@ -55,8 +54,7 @@ class App extends Component{
         this.max_content_id=this.max_content_id+1;
         let _contents=Array.from(this.state.contents);
         _contents.push({id:this.max_content_id, title:newtitle, desc:newdesc});
-        console.log(_contents);
-        this.setState({
+       this.setState({
           contents:_contents,
           mode:'read',
           selected_content_id:this.max_content_id
@@ -64,7 +62,12 @@ class App extends Component{
       }.bind(this)}></CreateContent>
     }
     else if(this.state.mode==='update'){
-      _article=<UpdateContents></UpdateContents>
+      _content=this.getReadContents();
+      _article=<UpdateContents data={_content} 
+      //onSubmit의 인자는 update의 onSubmit이 주는거
+      onSubmit={function(_title,_desc){
+
+      }.bind(this)}></UpdateContents>
     }
     return _article;
   }
