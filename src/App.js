@@ -37,7 +37,7 @@ class App extends Component{
       }
     }
   }
-  render(){
+  getContents(){
     let _title, _desc, _article, _content=null;
     if(this.state.mode==='welcome'){
       _title=this.state.welcome.title;
@@ -50,9 +50,21 @@ class App extends Component{
      _article=<Contents title={_content.title} desc={_content.desc}></Contents>
     }
     else if (this.state.mode==='create'){
-      this.state.max_content_id=this.state.max_content_id+1;
-      _article=<CreateContent></CreateContent>
+      _article=<CreateContent onSubmit={function(newtitle, newdesc){
+        this.max_content_id=this.max_content_id+1;
+        let _contents=Array.from(this.state.contents);
+        _contents.push({id:this.max_content_id, title:newtitle, desc:newdesc});
+        console.log(_contents);
+        this.setState({
+          contents:_contents,
+          mode:'read',
+          selected_content_id:this.max_content_id
+        });
+      }.bind(this)}></CreateContent>
     }
+    return _article;
+  }
+  render(){
     return(
       <div className="App">
         <header className="App-header">
@@ -73,7 +85,7 @@ class App extends Component{
           data={this.state.contents}>
           </Toc>
           <Control></Control>
-          {_article}
+          {this.getContents()}
 
         </header>
 
