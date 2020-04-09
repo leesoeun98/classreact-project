@@ -62,15 +62,24 @@ class App extends Component{
       }.bind(this)}></CreateContent>
     }
     else if(this.state.mode==='update'){
+      //이 _content는 내가 선택한 data 1개고 (update에 넘겨줄)
       _content=this.getReadContents();
       _article=<UpdateContents data={_content} 
-      //onSubmit의 인자는 update의 onSubmit이 주는거
-      onSubmit={function(updatetitle,updatedesc){
+      onSubmit={function(updateid, updatetitle,updatedesc){
+        //이 _contents는 state로서의 contents 복사본으로 모든 원소를 가짐
+        // 복사본의 특정 원소를 수정하고 그걸로 setstate하려는 것
+        let _contents=Array.from(this.state.contents);
+        for(let i=0;i<_contents.length;i++){
+          if(_contents[i].id===updateid){
+            _contents[i]={id:updateid, title:updatetitle, desc:updatedesc}
+          }
+        }
         this.setState({
-          title:updatetitle,
-          desc:updatedesc
-        });
-      }.bind(this)}></UpdateContents>
+          contents:_contents,
+          mode:'read'
+           });
+      }.bind(this)}
+    ></UpdateContents>
     }
     return _article;
   }
