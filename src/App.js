@@ -14,12 +14,15 @@ import './App.css';
 {/* Toc에 있는 title클릭시 mode를 read로 바꾼 후 하단에 해당 desc, title같이 뜨게
 -> 내가 클릭한 id에 해당하는 contente의 title, desc를 보여주면 됨*/}
 
+{/* delete할 경우 id받아와서 복사본에 해당하는 content삭제하고 복사본으로 setstate
+*/}
+
 class App extends Component{
   constructor(props){
     super(props);
     this.max_content_id=3;
     this.state={
-      mode:'create',
+      mode:'welcome',
       selected_content_id:1,
       subject:{title: "web", sub: "world wide web!"},
       welcome:{title:"welcome", desc:"Hello, React!"},
@@ -105,7 +108,22 @@ class App extends Component{
           </Toc>
 
           <Control onChangeMode={function(_mode){
-            this.setState({mode:_mode});
+            if(_mode==='delete'){
+             let _contents=Array.from(this.state.contents); 
+             for(let i=0;i<_contents.length;i++){
+               if(_contents[i].id===this.state.selected_content_id){
+                 _contents.splice(i,1);
+                 break;
+               }
+             }
+             this.setState({
+              mode:'welcome',
+              contents:_contents
+             });
+
+            }else{
+              this.setState({mode:_mode});
+            }
           }.bind(this)}>
           </Control>
 
