@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Subject from './components/Subject';
 import Contents from './components/Contents';
+import Control from './components/Control';
 import Toc from './components/Toc';
 import logo from './logo.svg';
 import './App.css';
@@ -65,7 +66,7 @@ class App extends Component{
           }.bind(this)}
           data={this.state.contents}>
           </Toc>
-
+          <Control></Control>
           {_article}
 
         </header>
