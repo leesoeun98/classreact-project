@@ -109,18 +109,20 @@ class App extends Component{
 
           <Control onChangeMode={function(_mode){
             if(_mode==='delete'){
-             let _contents=Array.from(this.state.contents); 
-             for(let i=0;i<_contents.length;i++){
-               if(_contents[i].id===this.state.selected_content_id){
-                 _contents.splice(i,1);
-                 break;
-               }
-             }
-             this.setState({
-              mode:'welcome',
-              contents:_contents
-             });
-
+              if(window.confirm('really?')){
+                let _contents=Array.from(this.state.contents); 
+                for(let i=0;i<_contents.length;i++){
+                  if(_contents[i].id===this.state.selected_content_id){
+                    _contents.splice(i,1);
+                    break;
+                  }
+                }
+                this.setState({
+                 mode:'welcome',
+                 contents:_contents
+                });
+                alert('deleted!');
+              }
             }else{
               this.setState({mode:_mode});
             }
