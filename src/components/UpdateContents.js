@@ -36,18 +36,23 @@ class UpdateContents extends Component{
                     e.preventDefault();
                     this.props.onSubmit(this.state.id,e.target.title.value, e.target.desc.value);
                 }.bind(this)}>
+
+                    <input type="hidden" name="id" value={this.state.id}></input>
+                    
                     <p><input type="text" name="title" value={this.state.title}
                     onChange={function(e){
                         this.setState({
                             title:e.target.value
                         });
                     }.bind(this)}></input></p>
+
                     <p><textarea name="desc" value={this.state.desc} 
                     onChange={function(e){
                         this.setState({
                             desc:e.target.value
                         });
                     }.bind(this)}></textarea></p>
+
                     <p><button type="submit">update</button></p>
                 </form>
             </article>
